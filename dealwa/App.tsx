@@ -77,7 +77,7 @@ export default function App() {
               <Nav screenToDisplay="Landing" />
             )
           }
-          <FlashMessage position="bottom" />
+          <FlashMessage position="top" statusBarHeight={40} />
         </View>
       </UserContext.Provider>
     </NavigationContainer>

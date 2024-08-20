@@ -8,6 +8,10 @@ import ConfirmEmailScreen from '../screens/_start/confirmEmailScreen/ConfirmEmai
 import CreatePswdScreen from '../screens/_start/createPswdScreen/CreatePswdScreen';
 import SetDetailsScreen from '../screens/_start/setDetailsScreen/SetDetailsScreen';
 import SetLanguagesScreen from '../screens/_start/setLanguagesScreen/SetLanguagesScreen';
+import SetAgentDetailsScreen from '../screens/_start/setAgentDetailsScreen/SetAgentDetailsScreen';
+import SuccessScreen from '../screens/_start/successScreen/SuccessScreen';
+import SelectPlanScreen from '../screens/_start/selectPlanScreen/SelectPlanScreen';
+import PaiementScreen from '../screens/_start/paiementScreen/PaiementScreen';
 
 export type RootStackParamList = {
     Home: undefined;
@@ -18,6 +22,10 @@ export type RootStackParamList = {
     SetDetails: { email: string, type: string, password: string };
     SetLanguages: { email: string, type: string };
     Landing2: { type: string };
+    SetAgentDetails: { email: string, type: string };
+    Success: { nextScreen: string };
+    SelectPlan: undefined;
+    Paiement: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -38,6 +46,10 @@ export default function Nav(props: NavProps) {
             <Stack.Screen name="CreatePswd" component={CreatePswdScreen} options={{ headerShown: false }} />
             <Stack.Screen name="SetDetails" component={SetDetailsScreen} options={{ headerShown: false }} />
             <Stack.Screen name="SetLanguages" component={SetLanguagesScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="SetAgentDetails" component={SetAgentDetailsScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Success" component={SuccessScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="SelectPlan" component={SelectPlanScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="Paiement" component={PaiementScreen} options={{ headerShown: false }} />
             <Stack.Screen name="Home" component={BottomTabNav} options={{ headerShown: false }} />
         </Stack.Navigator>
     )

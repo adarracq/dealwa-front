@@ -7,6 +7,7 @@ type BodyTextProps = {
     color?: string;
     style?: any;
     marginLeft?: number;
+    centered?: boolean;
 }
 
 export default function BodyText(props: BodyTextProps) {
@@ -15,6 +16,7 @@ export default function BodyText(props: BodyTextProps) {
             fontSize: 14,
             color: props.color ? props.color : Colors.black,
             marginLeft: props.marginLeft ? props.marginLeft : null,
+            textAlign: props.centered ? 'center' : 'left',
             fontFamily: props.style == 'bold' ? 'poppins-bold'
                 :
                 props.style == 'italic' ? 'poppins-italic'

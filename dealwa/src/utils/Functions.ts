@@ -19,6 +19,18 @@ function getIconSource(name: string) {
             return require('../assets/icons/profile.png');
         case 'check':
             return require('../assets/icons/check.png');
+        case 'info':
+            return require('../assets/icons/info.png');
+        case 'profile':
+            return require('../assets/icons/profile.png');
+        case 'marker':
+            return require('../assets/icons/marker.png');
+        case 'flash':
+            return require('../assets/icons/flash.png');
+        case 'credit-card':
+            return require('../assets/icons/credit-card.png');
+        case 'paypal':
+            return require('../assets/icons/paypal.png');
         case 'google':
             return require('../assets/icons/google.png');
         case 'facebook':

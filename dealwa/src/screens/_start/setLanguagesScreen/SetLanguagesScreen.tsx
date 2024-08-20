@@ -1,4 +1,4 @@
-import { Image, ScrollView, StyleSheet, Touchable, TouchableOpacity, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, View } from 'react-native'
 import React, { Component, useState } from 'react'
 import Colors from '../../../constants/Colors'
 
@@ -6,8 +6,6 @@ import Button from '../../../components/molecules/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../navigations/Nav';
 import Title1 from '../../../components/atoms/Title1';
-import InputField from '../../../components/molecules/InputField';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import SmallText from '../../../components/atoms/SmallText';
 import { showMessage } from 'react-native-flash-message';
 import BodyText from '../../../components/atoms/BodyText';
@@ -86,14 +84,17 @@ export default function SetLanguagesScreen({ navigation, route }: Props) {
     }
 
 
-    function goToLanguages() {
-        /*if (selectedLanguages.length < 1) {
-            showMessage({
-                message: "Veuillez choisir au moins une langue",
-                type: "danger",
+    function next() {
+        //TODO : save selected languages
+        if (params.type === 'Agent') {
+            navigation.navigate('SetAgentDetails', {
+                type: params.type,
+                email: params.email,
             });
-            return;
-        }*/
+        }
+        else {
+            navigation.navigate('Home');
+        }
     }
 
 
@@ -121,7 +122,7 @@ export default function SetLanguagesScreen({ navigation, route }: Props) {
                 title="Continuer"
                 backgroundColor={Colors.mainBlue}
                 textColor={Colors.white}
-                onPress={goToLanguages} />
+                onPress={next} />
 
         </View>
     )

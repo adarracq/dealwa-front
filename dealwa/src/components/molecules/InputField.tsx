@@ -9,9 +9,8 @@ type InputFieldProps = {
     onChangeText: (text: string) => void;
     onFocus?: () => void;
     errorText?: string | null;
-    icon?: any;
     isPassword?: boolean;
-    isEditable?: boolean;
+    keyBoardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
 }
 
 export default function InputField(props: InputFieldProps) {
@@ -26,7 +25,7 @@ export default function InputField(props: InputFieldProps) {
     }
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <TextInput
                 style={{
                     height: 50,
@@ -34,7 +33,7 @@ export default function InputField(props: InputFieldProps) {
                     borderColor: props.errorText ? Colors.mainRed : Colors.lightBlue,
                     borderWidth: isFocused || props.errorText ? 2 : 0,
                     borderRadius: 16,
-                    paddingLeft: 10,
+                    paddingLeft: 16,
                     backgroundColor: Colors.white,
                     fontFamily: 'poppins',
                 }}
@@ -44,6 +43,8 @@ export default function InputField(props: InputFieldProps) {
                 value={props.value}
                 placeholder={props.placeholder}
                 secureTextEntry={props.isPassword}
+                keyboardType={props.keyBoardType || 'default'}
+
             />
             {props.errorText && <SmallText text={props.errorText} color={Colors.mainRed} />}
         </View>
