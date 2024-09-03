@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Colors from '../../../constants/Colors';
 import BodyText from '../../../components/atoms/BodyText';
@@ -13,11 +13,13 @@ import TopMenu from '../../../components/molecules/TopMenu';
 import Benefits from './components/Benefits';
 import Plan from './components/Plan';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SelectPlan'>;
+type Props = NativeStackScreenProps<NavParams, 'SelectPlan'>;
 
 export default function SelectPlanScreen({ navigation, route }: Props) {
 
-    const [plan, setPlan] = useState(0);
+    const params = route.params;
+
+    const [plan, setPlan] = useState(1);
     const [bill, setBill] = useState(0);
 
     const benefits0 = [
@@ -96,7 +98,12 @@ export default function SelectPlanScreen({ navigation, route }: Props) {
     ];
 
     function next() {
-        navigation.navigate('Paiement');
+        navigation.navigate('Paiement', {
+            plan: plan,
+            bill: bill,
+            email: params.email
+        });
+
     }
 
     return (

@@ -18,7 +18,7 @@ type TopMenuProps = {
 
 export default function TopMenu(props: TopMenuProps) {
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, height: 50 }}>
             {
                 props.topInfo &&
                 <View style={{
@@ -41,22 +41,24 @@ export default function TopMenu(props: TopMenuProps) {
             <TouchableOpacity onPress={props.onPress}
                 style={props.selected ? styles.containerSelected : styles.container}>
                 {
-                    props.icon &&
+                    props.icon ?
                         props.keepIconColor ?
-                        <Image
-                            source={functions.getIconSource(props.icon)}
-                            style={{
-                                width: 24,
-                                height: 24,
-                            }} />
+                            <Image
+                                source={functions.getIconSource(props.icon)}
+                                style={{
+                                    width: 24,
+                                    height: 24,
+                                }} />
+                            :
+                            <Image
+                                source={functions.getIconSource(props.icon)}
+                                style={{
+                                    width: 24,
+                                    height: 24,
+                                    tintColor: props.selected ? Colors.white : Colors.darkGrey
+                                }} />
                         :
-                        <Image
-                            source={functions.getIconSource(props.icon)}
-                            style={{
-                                width: 24,
-                                height: 24,
-                                tintColor: props.selected ? Colors.white : Colors.darkGrey
-                            }} />
+                        null
 
                 }
 

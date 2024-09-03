@@ -18,7 +18,7 @@ export default function Title1(props: Title1Props) {
             textAlign: props.centered ? 'center' : 'left',
             fontFamily: 'montserrat-bold',
             marginTop: props.marginTop ? props.marginTop : 0,
-            marginBottom: props.marginBottom ? props.marginBottom : 0
+            marginBottom: props.marginBottom ? props.marginBottom : 0,
         }}>{props.title}</Text>
     )
 }

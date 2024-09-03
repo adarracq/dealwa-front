@@ -2,12 +2,12 @@ import { View } from 'react-native'
 import React, { useEffect } from 'react'
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Colors from '../../../constants/Colors';
 import BodyText from '../../../components/atoms/BodyText';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Success'>;
+type Props = NativeStackScreenProps<NavParams, 'Success'>;
 
 export default function SuccessScreen({ navigation, route }: Props) {
 

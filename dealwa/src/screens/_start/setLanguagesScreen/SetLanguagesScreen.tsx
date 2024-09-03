@@ -1,106 +1,62 @@
 import { Image, ScrollView, StyleSheet, View } from 'react-native'
-import React, { Component, useState } from 'react'
+import React, { Component, useContext, useState } from 'react'
 import Colors from '../../../constants/Colors'
 
 import Button from '../../../components/molecules/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import Title1 from '../../../components/atoms/Title1';
 import SmallText from '../../../components/atoms/SmallText';
 import { showMessage } from 'react-native-flash-message';
 import BodyText from '../../../components/atoms/BodyText';
 import Country from './components/Country';
+import { userService } from '../../../services/user.service';
+import AsyncStorageUser from '../../../utils/AsyncStorageUser';
+import { UserContext } from '../../../contexts/UserContext';
+import Languages from '../../../constants/Languages';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SetLanguages'>;
+type Props = NativeStackScreenProps<NavParams, 'SetLanguages'>;
 
 export default function SetLanguagesScreen({ navigation, route }: Props) {
 
     const params = route.params;
-    const [languages, setLanguages] = useState([
-        {
-            id: 0,
-            name: 'Allemand',
-            icon: 'flag-germany',
-            selected: false
-        },
-        {
-            id: 1,
-            name: 'Anglais',
-            icon: 'flag-uk',
-            selected: false
-        },
-        {
-            id: 2,
-            name: 'Arabe',
-            icon: 'flag-arabic',
-            selected: false
-        },
-        {
-            id: 3,
-            name: 'Chinois',
-            icon: 'flag-china',
-            selected: false
-        },
-        {
-            id: 4,
-            name: 'Espagnol',
-            icon: 'flag-spain',
-            selected: false
-        },
-        {
-            id: 5,
-            name: 'Français',
-            icon: 'flag-french',
-            selected: false
-        },
-        {
-            id: 6,
-            name: 'Italien',
-            icon: 'flag-italy',
-            selected: false
-        },
-        {
-            id: 7,
-            name: 'Japonais',
-            icon: 'flag-japan',
-            selected: false
-        },
-        {
-            id: 8,
-            name: 'Portugais',
-            icon: 'flag-portugal',
-            selected: false
-        },
-        {
-            id: 9,
-            name: 'Russe',
-            icon: 'flag-russia',
-            selected: false
-        },
-    ]);
+    const [userData, setUserData] = useContext(UserContext);
+    const [languages, setLanguages] = useState(Languages.languages);
 
     function changeLanguage(id: number) {
         setLanguages(languages.map((language) => language.id === id ? { ...language, selected: !language.selected } : language));
     }
 
 
-    function next() {
-        //TODO : save selected languages
-        if (params.type === 'Agent') {
-            navigation.navigate('SetAgentDetails', {
-                type: params.type,
-                email: params.email,
-            });
-        }
-        else {
-            navigation.navigate('Home');
-        }
+    function saveLanguages() {
+        const selectedLanguages = languages.filter((language) => language.selected).map((language) => language.id);
+        userService.update(params.email, {
+            languages: selectedLanguages
+        }).then((response) => {
+
+            AsyncStorageUser.setUser(response);
+            setUserData(response);
+
+            if (params.type === 'agent')
+                navigation.navigate('SetAgentDetails', {
+                    email: params.email,
+                });
+            else
+                navigation.navigate('Home');
+
+        }).catch((error) => {
+            showMessage({
+                message: 'Erreur',
+                description: 'Une erreur est survenue',
+                type: 'danger',
+            })
+        });
     }
 
 
     return (
         <View style={styles.container}>
-            <Title1 title="Choisissez vos langue(s) préférée(s)" />
+            <Title1 title="Choisissez vos langue(s) parlée(s)" />
             <SmallText text="Vous pourrez changer ces langues dans votre profil après votre inscription." isLeft />
             <BodyText text="Populaire" color={Colors.darkGrey} marginLeft={30} />
             <View style={{ gap: 10 }}>
@@ -122,7 +78,7 @@ export default function SetLanguagesScreen({ navigation, route }: Props) {
                 title="Continuer"
                 backgroundColor={Colors.mainBlue}
                 textColor={Colors.white}
-                onPress={next} />
+                onPress={saveLanguages} />
 
         </View>
     )

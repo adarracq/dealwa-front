@@ -18,7 +18,7 @@ export default function BottomArea(props: BottomAreaProps) {
             width: '100%',
             padding: 20,
             borderTopLeftRadius: 24,
-            borderTopRightRadius: 24
+            borderTopRightRadius: 24,
         }}>
             {props.children}
         </View>

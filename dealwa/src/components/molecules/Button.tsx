@@ -11,6 +11,7 @@ type ButtonProps = {
   icon?: any;
   iconColor?: any;
   textColor?: any;
+  noShadow?: boolean;
 }
 
 export default function Button(props: ButtonProps) {
@@ -30,7 +31,7 @@ export default function Button(props: ButtonProps) {
         },
         shadowOpacity: 0.17,
         shadowRadius: 3.05,
-        elevation: 4
+        elevation: props.noShadow ? 0 : 4
       }}>
       {
         props.icon &&

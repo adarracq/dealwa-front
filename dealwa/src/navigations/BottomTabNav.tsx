@@ -1,23 +1,43 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Colors from '../constants/Colors';
 import { StyleSheet } from 'react-native';
 import TabBarElement from '../components/molecules/TabBarElement';
-import ShopScreen from '../screens/shopScreen/ShopScreen';
-import ProjectsScreen from '../screens/projectsScreen/ProjectsScreen';
-import CalendarScreen from '../screens/calendarScreen/CalendarScreen';
-import MapScreen from '../screens/mapScreen/MapScreen';
-import MessagesScreen from '../screens/messagesScreen/MessagesScreen';
-import ProfileScreen from '../screens/profileScreen/ProfileScreen';
-
-const Tab = createBottomTabNavigator();
-
-type BottomTabNavProps = {
-    agent?: boolean;
-}
+import { UserContext } from '../contexts/UserContext';
+import MessagesNav from './MessagesNav';
+import ProfileNav from './ProfileNav';
+import ShopNav from './ShopNav';
+import ProjectsNav from './ProjectsNav';
+import CalendarNav from './CalendarNav';
+import AgentMapNav from './AgentMapNav';
+import UserMapNav from './UserMapNav';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NavParams } from './Nav';
 
 
-export default function BottomTabNav(props: BottomTabNavProps) {
+export type BottomNavParams = {
+    ShopOrProject: undefined;
+    Calendar: undefined;
+    Map: undefined;
+    Messages: undefined;
+    Profile: undefined;
+};
+
+const Tab = createBottomTabNavigator<BottomNavParams>();
+
+type Props = NativeStackScreenProps<NavParams, 'Home'>;
+
+export default function BottomTabNav({ navigation, route }: Props) {
+    const [userData, setUserData] = useContext(UserContext);
+    const [isAgent, setIsAgent] = useState(false);
+
+    useEffect(() => {
+        if (!userData)
+            navigation.navigate('Landing');
+        else if (userData.type == 'agent')
+            setIsAgent(true);
+    }, [userData]);
+
     return (
         <Tab.Navigator
             initialRouteName="Map"
@@ -29,13 +49,13 @@ export default function BottomTabNav(props: BottomTabNavProps) {
         >
             <Tab.Screen
                 name="ShopOrProject"
-                component={props.agent ? ShopScreen : ProjectsScreen}
+                component={ProjectsNav}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         TabBarElement({
-                            title: props.agent ? 'Boutique' : 'Projets',
+                            title: 'Projets',
                             focused: focused,
-                            name: props.agent ? 'shop' : 'projects',
+                            name: 'projects',
                         })
                     ),
 
@@ -43,7 +63,7 @@ export default function BottomTabNav(props: BottomTabNavProps) {
             />
             <Tab.Screen
                 name="Calendar"
-                component={CalendarScreen}
+                component={CalendarNav}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         TabBarElement({
@@ -57,7 +77,7 @@ export default function BottomTabNav(props: BottomTabNavProps) {
             />
             <Tab.Screen
                 name="Map"
-                component={MapScreen}
+                component={isAgent ? AgentMapNav : UserMapNav}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         TabBarElement({
@@ -71,7 +91,7 @@ export default function BottomTabNav(props: BottomTabNavProps) {
             />
             <Tab.Screen
                 name="Messages"
-                component={MessagesScreen}
+                component={MessagesNav}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         TabBarElement({
@@ -85,7 +105,7 @@ export default function BottomTabNav(props: BottomTabNavProps) {
             />
             <Tab.Screen
                 name="Profile"
-                component={ProfileScreen}
+                component={ProfileNav}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         TabBarElement({
@@ -104,9 +124,9 @@ export default function BottomTabNav(props: BottomTabNavProps) {
 const styles = StyleSheet.create({
     tabBarStyle: {
         height: 70,
-        borderTopLeftRadius: 32,
-        borderTopRightRadius: 32,
-        backgroundColor: Colors.mainBlue,
+        borderTopLeftRadius: 16,
+        borderTopRightRadius: 16,
+        backgroundColor: Colors.black,
         paddingLeft: 10,
         paddingRight: 10,
     },

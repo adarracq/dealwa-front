@@ -1,19 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { Component, useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import Colors from '../../../constants/Colors'
 import LogoElement from '../../../components/molecules/LogoElement'
 import BottomArea from '../../../components/containers/BottomArea'
 import Title1 from '../../../components/atoms/Title1'
-import SmallText from '../../../components/atoms/SmallText'
-import OrSeparator from '../../../components/molecules/OrSeparator'
-import { NavigationProp, RouteProp } from '@react-navigation/native'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav'
+import { NavParams } from '../../../navigations/Nav'
 import IconText from '../../../components/molecules/IconText'
 import Button from '../../../components/molecules/Button'
 
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Landing2'>;
+type Props = NativeStackScreenProps<NavParams, 'Landing2'>;
 
 
 export default function LandingScreen2({ navigation, route }: Props) {
@@ -28,7 +25,7 @@ export default function LandingScreen2({ navigation, route }: Props) {
     }
 
     useEffect(() => {
-        if (type == 'Agent') {
+        if (type == 'agent') {
             setList([
                 'Augmentez votre visibilité et développez votre notoriété.',
                 'Facilitez l’expansion de votre répertoire avec de nouveaux prospects.',
@@ -52,7 +49,7 @@ export default function LandingScreen2({ navigation, route }: Props) {
             <LogoElement color={Colors.mainBlue} />
             <BottomArea backgroundColor={Colors.mainBlue}>
                 <Title1 color={Colors.white} marginBottom={20} marginTop={20} centered
-                    title={type === 'Agent' ? "Réinventez votre façon de travailler avec Dealwa." : "Réinventez vos projets immobiliers avec Dealwa."} />
+                    title={type === 'agent' ? "Réinventez votre façon de travailler avec Dealwa." : "Réinventez vos projets immobiliers avec Dealwa."} />
                 {
                     list && list.map((item, index) => {
                         return <IconText key={index} text={item} icon="check" textColor={Colors.lightGrey} iconColor={Colors.white} />

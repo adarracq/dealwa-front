@@ -3,6 +3,7 @@ import React from 'react'
 import Title2 from '../atoms/Title2';
 import Colors from '../../constants/Colors';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import BodyText from '../atoms/BodyText';
 
 type CheckBoxProps = {
   title: string;
@@ -15,7 +16,7 @@ export default function CheckBox(props: CheckBoxProps) {
     <TouchableOpacity onPress={props.onPress}
       style={props.selected ? styles.containerSelected : styles.container}>
 
-      <Title2 title={props.title} />
+      <BodyText text={props.title} />
       {
         props.selected ?
           <MaterialCommunityIcons name="checkbox-marked" size={16} color={Colors.lightBlue} />

@@ -4,7 +4,7 @@ import Colors from '../../../constants/Colors'
 
 import Button from '../../../components/molecules/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import Title1 from '../../../components/atoms/Title1';
 import InputField from '../../../components/molecules/InputField';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -14,8 +14,9 @@ import Title2 from '../../../components/atoms/Title2';
 import RadioButton from '../../../components/molecules/RadioButton';
 import CheckBox from '../../../components/molecules/Checkbox';
 import PlusMinusInput from '../../../components/molecules/PlusMinusInput';
+import { userService } from '../../../services/user.service';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SetAgentDetails'>;
+type Props = NativeStackScreenProps<NavParams, 'SetAgentDetails'>;
 
 export default function SetAgentDetailsScreen({ navigation, route }: Props) {
 
@@ -41,8 +42,24 @@ export default function SetAgentDetailsScreen({ navigation, route }: Props) {
         }
     ]);
 
-    function next() {
-        navigation.navigate('SelectPlan');
+    function saveDetails() {
+        const selectedSpecialities = specialities.filter((s) => s.selected).map((s) => s.id);
+        userService.update(params.email, {
+            network,
+            status,
+            experience,
+            specialities: selectedSpecialities
+        }).then(() => {
+            navigation.navigate('SelectPlan', {
+                email: params.email
+            });
+        }).catch((error) => {
+            showMessage({
+                message: 'Erreur',
+                description: 'Une erreur est survenue',
+                type: 'danger',
+            })
+        })
     }
 
 
@@ -102,7 +119,7 @@ export default function SetAgentDetailsScreen({ navigation, route }: Props) {
                 title="Continuer"
                 backgroundColor={Colors.mainBlue}
                 textColor={Colors.white}
-                onPress={next} />
+                onPress={saveDetails} />
         </View>
     )
 

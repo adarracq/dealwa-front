@@ -1,8 +1,8 @@
 import { ScrollView, StyleSheet, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Colors from '../../../constants/Colors';
 import BodyText from '../../../components/atoms/BodyText';
@@ -12,18 +12,44 @@ import SmallText from '../../../components/atoms/SmallText';
 import TopMenu from '../../../components/molecules/TopMenu';
 import Paypal from './components/Paypal';
 import CreditCardForm from './components/CreditCardForm';
+import { userService } from '../../../services/user.service';
+import AsyncStorageUser from '../../../utils/AsyncStorageUser';
+import { UserContext } from '../../../contexts/UserContext';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Paiement'>;
+type Props = NativeStackScreenProps<NavParams, 'Paiement'>;
 
 export default function PaiementScreen({ navigation, route }: Props) {
 
+    const [userData, setUserData] = useContext(UserContext);
     const [method, setMethod] = useState(0);
     const [creditCardValues, setCreditCardValues] = useState({ cardNumber: '', cardName: '', cardDate: '', cardCvv: '' });
 
 
-    function next() {
+    function subscribePlan() {
+
         //TODO : complete the payment
-        navigation.navigate('Home');
+
+        userService.update(route.params.email, {
+            plan: route.params.plan,
+            bill: route.params.bill,
+            subscriptionDate: new Date(),
+            expirationDate: getExpirationDate()
+        }).then((response) => {
+            AsyncStorageUser.setUser(response);
+            setUserData(response);
+            navigation.navigate('Home');
+        }).catch((error) => {
+            console.log('error');
+        });
+    }
+
+    function getExpirationDate() {
+        if (route.params.bill == 1) {
+            return new Date(new Date().setMonth(new Date().getMonth() + 1));
+        }
+        if (route.params.bill == 0) {
+            return new Date(new Date().setFullYear(new Date().getFullYear() + 1));
+        }
     }
 
     return (
@@ -67,7 +93,7 @@ export default function PaiementScreen({ navigation, route }: Props) {
                 title={method === 0 ? "Payer maintenant" : "Aller sur PayPal"}
                 backgroundColor={Colors.mainBlue}
                 textColor={Colors.white}
-                onPress={next} />
+                onPress={subscribePlan} />
         </View>
     )
 

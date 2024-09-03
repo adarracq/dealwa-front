@@ -64,12 +64,14 @@ export default function CreditCardForm(props: CreditCardFormProps) {
                     value={cardDate}
                     keyBoardType='numeric'
                     onChangeText={(text) => onChangeCardDate(text)}
+                    flex={1}
                 />
                 <InputField
                     placeholder="CVV"
                     value={cardCvv}
                     keyBoardType='numeric'
                     onChangeText={(text) => onChangeCardCvv(text)}
+                    flex={1}
                 />
 
             </View>

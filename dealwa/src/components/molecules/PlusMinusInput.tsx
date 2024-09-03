@@ -4,6 +4,8 @@ import Colors from '../../constants/Colors';
 import Entypo from '@expo/vector-icons/Entypo';
 import Title0 from '../atoms/Title0';
 import SmallText from '../atoms/SmallText';
+import Title2 from '../atoms/Title2';
+import Title1 from '../atoms/Title1';
 
 type PlusMinusInputProps = {
     value: string;
@@ -25,7 +27,7 @@ export default function PlusMinusInput(props: PlusMinusInputProps) {
                 backgroundColor: Colors.white,
             }}
         >
-            <Title0 title={props.value} />
+            <Title1 title={props.value} />
             <View style={{
                 flexDirection: 'row',
                 gap: 1,

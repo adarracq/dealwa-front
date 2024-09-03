@@ -3,6 +3,7 @@ import React from 'react'
 import Title2 from '../atoms/Title2';
 import Colors from '../../constants/Colors';
 import Fontisto from '@expo/vector-icons/Fontisto';
+import BodyText from '../atoms/BodyText';
 
 type RadioButtonProps = {
   title: string;
@@ -15,7 +16,7 @@ export default function RadioButton(props: RadioButtonProps) {
     <TouchableOpacity onPress={props.onPress}
       style={props.selected ? styles.containerSelected : styles.container}>
 
-      <Title2 title={props.title} />
+      <BodyText text={props.title} />
       {
         props.selected ?
           <Fontisto name="radio-btn-active" size={16} color={Colors.lightBlue} />

@@ -4,14 +4,16 @@ import Colors from '../../../constants/Colors'
 
 import Button from '../../../components/molecules/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import Title1 from '../../../components/atoms/Title1';
 import InputField from '../../../components/molecules/InputField';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SmallText from '../../../components/atoms/SmallText';
 import { showMessage } from 'react-native-flash-message';
+import { userService } from '../../../services/user.service';
+import { functions } from '../../../utils/Functions';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'SetDetails'>;
+type Props = NativeStackScreenProps<NavParams, 'SetDetails'>;
 
 export default function SetDetailsScreen({ navigation, route }: Props) {
 
@@ -31,18 +33,30 @@ export default function SetDetailsScreen({ navigation, route }: Props) {
             })
             //return;
         }
-        navigation.navigate('SetLanguages', {
-            type: params.type,
-            email: params.email,
-        });
 
+        userService.update(params.email, {
+            firstname: firstName,
+            lastname: lastName,
+            birthdate: birthDate
+        }).then(() => {
+            navigation.navigate('SetLanguages', {
+                email: params.email,
+                type: params.type
+            });
+        }).catch((error) => {
+            showMessage({
+                message: 'Erreur',
+                description: 'Une erreur est survenue',
+                type: 'danger',
+            })
+        })
     }
 
     return (
         <View style={styles.container}>
             <View style={{ gap: 20 }}>
                 <Image
-                    source={require('../../../assets/icons/id-card.png')}
+                    source={functions.getIconSource('id-card')}
                     style={styles.icon}
                 />
                 <Title1 title="Vos informations" />
@@ -73,8 +87,16 @@ export default function SetDetailsScreen({ navigation, route }: Props) {
                                 const currentDate = selectedDate || date;
                                 setOpen(false);
                                 setDate(currentDate);
-                                let stringDate = currentDate.getDate().toString()
-                                    + "/" + (currentDate.getMonth() + 1).toString()
+                                // add 0 to day and month if < 10
+                                let day = currentDate.getDate().toString();
+                                let month = (currentDate.getMonth() + 1).toString();
+                                if (day.length === 1)
+                                    day = "0" + day;
+                                if (month.length === 1)
+                                    month = "0" + month;
+
+                                let stringDate = day
+                                    + "/" + month
                                     + "/" + currentDate.getFullYear().toString();
                                 setBirthDate(stringDate);
                             }}

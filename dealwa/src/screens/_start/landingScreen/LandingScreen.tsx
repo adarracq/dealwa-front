@@ -10,29 +10,29 @@ import OrSeparator from '../../../components/molecules/OrSeparator'
 import { NavigationProp } from '@react-navigation/native';
 import Button from '../../../components/molecules/Button';
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../../navigations/Nav'
+import { NavParams } from '../../../navigations/Nav'
 
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Landing'>;
+type Props = NativeStackScreenProps<NavParams, 'Landing'>;
 
 export default function LandingScreen({ navigation }: Props) {
 
     function goToAgentScreen() {
         navigation.navigate('Landing2', {
-            type: 'Agent'
+            type: 'agent'
         });
     }
 
     function goToUserScreen() {
         navigation.navigate('Landing2', {
-            type: 'User'
+            type: 'user'
         });
     }
 
     function goToLoginScreen() {
         console.log('goToLoginScreen');
         navigation.navigate('Login', {
-            type: 'Undefined'
+            type: 'undefined'
         });
     }
 

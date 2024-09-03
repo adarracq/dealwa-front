@@ -10,10 +10,11 @@ import Colors from '../../../constants/Colors';
 import Button from '../../../components/molecules/Button';
 import InputField from '../../../components/molecules/InputField';
 import { showMessage } from 'react-native-flash-message';
-import { RootStackParamList } from '../../../navigations/Nav';
+import { NavParams } from '../../../navigations/Nav';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { userService } from '../../../services/user.service';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type Props = NativeStackScreenProps<NavParams, 'Login'>;
 
 export default function LoginScreen({ route, navigation }: Props) {
 
@@ -22,14 +23,29 @@ export default function LoginScreen({ route, navigation }: Props) {
     const [emailErrorText, setEmailErrorText] = useState<string | null>(null);
 
     function loginWithGoogle() {
+        showMessage({
+            message: 'Erreur',
+            description: 'Fonctionnalité non disponible pour le moment',
+            type: 'danger',
+        });
 
     }
 
     function loginWithApple() {
+        showMessage({
+            message: 'Erreur',
+            description: 'Fonctionnalité non disponible pour le moment',
+            type: 'danger',
+        });
 
     }
 
     function loginWithFacebook() {
+        showMessage({
+            message: 'Erreur',
+            description: 'Fonctionnalité non disponible pour le moment',
+            type: 'danger',
+        });
 
     }
 
@@ -59,14 +75,31 @@ export default function LoginScreen({ route, navigation }: Props) {
                 description: emailErrorText,
                 type: 'danger',
             });
-            //return;
+            return;
         }
 
         setEmailErrorText(null);
 
-        navigation.navigate('ConfirmEmail', {
-            email: email,
-            type: type
+        userService.getUserByEmail(email).then((response) => {
+            navigation.navigate('Pswd', {
+                email: email,
+                type: 'connection'
+            });
+
+        }).catch((error) => {
+            if (error === 'Not Found') {
+                navigation.navigate('Pswd', {
+                    email,
+                    type
+                });
+            }
+            else {
+                showMessage({
+                    message: 'Erreur',
+                    description: error,
+                    type: 'danger',
+                });
+            }
         });
     }
 
