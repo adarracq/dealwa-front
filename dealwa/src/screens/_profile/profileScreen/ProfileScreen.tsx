@@ -1,4 +1,4 @@
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Alert, DevSettings, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { Component, useContext, useEffect, useState } from 'react'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ProfileNavParams } from '../../../navigations/ProfileNav';
@@ -102,7 +102,7 @@ export default function ProfileScreen({ navigation, route }: Props) {
                             titleColor={Colors.darkGrey}>
                             <View style={styles.headerText}>
                                 <Title1
-                                    title={user.plan == 0 ? 'Basic' : 'Premium'}
+                                    title={user.plan == 0 ? 'Basique' : 'Premium'}
                                     color={Colors.mainBlue}
                                     centered
                                 />

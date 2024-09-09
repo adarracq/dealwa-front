@@ -18,7 +18,7 @@ export default function App() {
   const [userData, setUserData] = useState<User>();
 
   const [fontsLoaded, fontError] = useFonts({
-    poppins: require('./src/assets/fonts/poppins/Poppins-Regular.ttf'),
+    'poppins': require('./src/assets/fonts/poppins/Poppins-Regular.ttf'),
     'poppins-bold': require('./src/assets/fonts/poppins/Poppins-Bold.ttf'),
     'poppins-light': require('./src/assets/fonts/poppins/Poppins-Light.ttf'),
     'poppins-medium': require('./src/assets/fonts/poppins/Poppins-Medium.ttf'),
@@ -33,6 +33,7 @@ export default function App() {
 
   // on récupère les données de l'utilisateur dans le local storage
   function getUserFromStorage() {
+    console.log('Getting user from storage...');
     AsyncStorageUser.getUser().then(resp => {
       if (resp.email) {
         setUserData(resp);
@@ -57,12 +58,18 @@ export default function App() {
     //AsyncStorageUser.Logout();
   }, []);
 
+  useEffect(() => {
+    console.log('Is login:', isLogin);
+    console.log('User data:', userData);
+    if (!userData)
+      setIsLogin(false);
+  }, [userData, isLogin]);
+
 
   if (!fontsLoaded && !fontError) {
     console.log('Loading fonts...');
     return null;
   }
-
 
   return (
     <NavigationContainer>

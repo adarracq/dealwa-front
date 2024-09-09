@@ -17,6 +17,7 @@ type Props = {
     zoneMarkers?: MyMapMarker[];
     projectMarkers?: MyMapMarker[];
     onClickProjectMarker?: (marker: MyMapMarker) => void;
+    showCenterCircle?: boolean;
 }
 
 export default function MyMap(props: Props) {
@@ -30,7 +31,6 @@ export default function MyMap(props: Props) {
             longitude: region.longitude,
         });
     };
-
 
     // update zoom when change radius
     useEffect(() => {
@@ -51,7 +51,7 @@ export default function MyMap(props: Props) {
     }, [props.centerCircleRadius, props.onChangeCenter]);
 
     function centerCircle() {
-        if (props.centerCircleRadius) {
+        if (props.centerCircleRadius && props.showCenterCircle) {
             return <Circle
                 center={{
                     latitude: props.center.latitude,

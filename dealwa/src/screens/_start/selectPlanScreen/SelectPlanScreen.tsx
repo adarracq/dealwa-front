@@ -113,7 +113,7 @@ export default function SelectPlanScreen({ navigation, route }: Props) {
                 <SmallText text="Vous pourrez changer d’abonnement dans votre profil après votre inscription." isLeft />
                 <View style={styles.topMenus}>
                     <TopMenu
-                        text="Classique"
+                        text="Basique"
                         selected={plan === 0}
                         onPress={() => setPlan(0)}
                     />

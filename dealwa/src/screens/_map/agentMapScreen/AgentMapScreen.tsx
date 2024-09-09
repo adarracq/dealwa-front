@@ -18,8 +18,9 @@ import Project from '../../../models/Project';
 import ProjectView from './components/ProjectView';
 import SwitchListMap from './components/SwitchListMap';
 import ProjectsList from './components/ProjectsList';
+import ZoneLocker from '../../../components/molecules/ZoneLocker';
 
-type Props = NativeStackScreenProps<AgentMapNavParams, 'Home'>;
+type Props = NativeStackScreenProps<AgentMapNavParams, 'HomeAgentMap'>;
 
 export default function AgentMapScreen({ navigation, route }: Props) {
 
@@ -36,6 +37,8 @@ export default function AgentMapScreen({ navigation, route }: Props) {
     const [projectSelected, setProjectSelected] = useState<Project>();
     const [projectMarkers, setProjectMarkers] = useState<MyMapMarker[]>([]);
     const [isList, setIsList] = useState(false);
+    const [isZoneLock, setIsZoneLock] = useState(false);
+    const [circleLock, setCircleLock] = useState<MyMapCircle>();
 
     function getUser() {
         if (!userData)
@@ -55,33 +58,6 @@ export default function AgentMapScreen({ navigation, route }: Props) {
         if (!user.zones || user.zones.length == 0)
             return;
 
-        let _projects: Project[] = [];
-        let _markers: MyMapMarker[] = [];
-
-        /*user.zones.forEach(zone => {
-            projectService.getProjectsInZone(zone)
-                .then((projects) => {
-                    projects.forEach((project: Project) => {
-                        _projects.push(project);
-                    });
-
-                    projects.forEach((project: any) => {
-                        _markers.push(new MyMapMarker(
-                            new Coordinates(project.coord[1], project.coord[0]),
-                            project.user_firstname,
-                            project.type == 0 ? "Projet d'achat" : 'Projet de vente',
-                            project.type == 0 ? 'project_buy' : 'project_sell'
-                        ));
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        });
-
-        setProjects(_projects);
-        setProjectMarkers(_markers);
-*/
         projectService.getProjectsInZones(user.zones)
             .then((projects) => {
                 setProjects(projects);
@@ -197,6 +173,11 @@ export default function AgentMapScreen({ navigation, route }: Props) {
             'geolocation'
         );
         setMarker(posMarker);
+
+        // lock zone
+        setTimeout(() => {
+            setIsZoneLock(true);
+        }, 2100);
     }
 
     function onSelectAddress(coords: Coordinates, address: string) {
@@ -210,6 +191,10 @@ export default function AgentMapScreen({ navigation, route }: Props) {
             );
             setMarker(posMarker);
         }, 100);
+        // lock zone
+        setTimeout(() => {
+            setIsZoneLock(true);
+        }, 2500);
     }
 
     function onClickProjectMarker(marker: MyMapMarker) {
@@ -232,14 +217,21 @@ export default function AgentMapScreen({ navigation, route }: Props) {
                 {
                     text: 'Valider',
                     onPress: () => {
+                        let _center = center;
+                        // si zone bloquée, on rajoute les coordonnées de la zone bloquée
+                        if (isZoneLock && circleLock) {
+                            _center = circleLock.center;
+                        }
+
                         let newZone = new MyMapCircle(
-                            new Coordinates(center.latitude, center.longitude),
+                            new Coordinates(_center.latitude, _center.longitude),
                             centerCircleRadius || 1000,
                             'Zone de recherche',
                             'rgba(0, 0, 0, 0.2)',
                         );
                         userService.addZone(userData.email, newZone)
                             .then((result) => {
+                                setIsZoneLock(false);
                                 getUser();
                                 showMessage({
                                     message: 'Zone de chalandise enregistrée',
@@ -255,6 +247,30 @@ export default function AgentMapScreen({ navigation, route }: Props) {
             ]
         );
     }
+
+    useEffect(() => {
+        // si zone bloquée, on la bloque en la rajoutant dans les cercles
+        if (isZoneLock) {
+            let circle = new MyMapCircle(
+                new Coordinates(center.latitude, center.longitude),
+                centerCircleRadius || 1000,
+                'Zone de recherche',
+                'rgba(0, 0, 0, 0.2)',
+            );
+            setCircleLock(circle);
+            let _circles = circles.slice();
+            _circles.push(circle);
+            setCircles(_circles);
+
+        }
+        // si zone débloquée, on la débloque en la retirant des cercles
+        else {
+            let _circles = circles.filter((circle) => {
+                return circle != circleLock;
+            });
+            setCircles(_circles);
+        }
+    }, [isZoneLock]);
 
 
     useEffect(() => {
@@ -273,7 +289,14 @@ export default function AgentMapScreen({ navigation, route }: Props) {
                 />
             }
             {
-                !isSelectingZone && !isList ?
+                isSelectingZone &&
+                <ZoneLocker
+                    isLock={isZoneLock}
+                    onSwitch={() => setIsZoneLock(!isZoneLock)}
+                />
+            }
+            {
+                !isList ?
                     <>
                         <MyMap
                             center={center}
@@ -285,16 +308,19 @@ export default function AgentMapScreen({ navigation, route }: Props) {
                             zoneMarkers={zoneMarkers}
                             projectMarkers={projectMarkers}
                             onClickProjectMarker={onClickProjectMarker}
+                            showCenterCircle={!isZoneLock}
                         />
                         {
                             isSelectingZone ?
-                                <BottomArea>
-                                    <MyGeoSearch
-                                        onGeolocation={onGeolocation}
-                                        onSelectAddress={onSelectAddress}
-                                        onValidate={onValidate}
-                                    />
-                                </BottomArea>
+                                <View style={{ zIndex: 1000 }}>
+                                    <BottomArea>
+                                        <MyGeoSearch
+                                            onGeolocation={onGeolocation}
+                                            onSelectAddress={onSelectAddress}
+                                            onValidate={onValidate}
+                                        />
+                                    </BottomArea>
+                                </View>
                                 :
                                 projectSelected &&
                                 <ProjectView

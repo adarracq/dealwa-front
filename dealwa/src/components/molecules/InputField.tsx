@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Colors from '../../constants/Colors';
 import SmallText from '../atoms/SmallText';
 import Title2 from '../atoms/Title2';
+import Entypo from '@expo/vector-icons/Entypo';
 
 type InputFieldProps = {
     placeholder: string;
@@ -22,6 +23,7 @@ type InputFieldProps = {
 export default function InputField(props: InputFieldProps) {
 
     const [isFocused, setIsFocused] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const onFocus = () => {
         setIsFocused(true);
@@ -35,6 +37,10 @@ export default function InputField(props: InputFieldProps) {
         if (props.onBlur) {
             props.onBlur();
         }
+    }
+
+    const onShowPassword = () => {
+        setShowPassword(!showPassword);
     }
 
     return (
@@ -57,7 +63,7 @@ export default function InputField(props: InputFieldProps) {
                 onChangeText={props.onChangeText}
                 value={props.value}
                 placeholder={props.placeholder}
-                secureTextEntry={props.isPassword}
+                secureTextEntry={props.isPassword && !showPassword}
                 keyboardType={props.keyBoardType || 'default'}
                 multiline={props.isMultiline}
             />
@@ -78,6 +84,15 @@ export default function InputField(props: InputFieldProps) {
                         color={isFocused ? Colors.mainBlue : Colors.darkGrey}
                     />
                 </View>
+            }
+            {
+                props.isPassword &&
+                <Entypo
+                    onPress={onShowPassword}
+                    style={{ position: 'absolute', right: 20, top: 13 }}
+                    name={showPassword ? 'eye' : 'eye-with-line'}
+                    size={24}
+                    color={Colors.mainBlue} />
             }
         </View>
     )

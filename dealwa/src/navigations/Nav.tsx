@@ -36,6 +36,7 @@ type NavProps = {
 
 export default function Nav(props: NavProps) {
 
+    console.log('props.screenToDisplay', props.screenToDisplay);
 
     return (
         <Stack.Navigator initialRouteName={props.screenToDisplay}>

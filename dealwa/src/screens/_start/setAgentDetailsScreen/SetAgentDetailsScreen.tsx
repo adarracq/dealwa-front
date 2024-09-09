@@ -27,17 +27,22 @@ export default function SetAgentDetailsScreen({ navigation, route }: Props) {
     const [specialities, setSpecialities] = useState([
         {
             id: 0,
-            name: 'Transaction',
+            name: 'Achat/Vente',
             selected: false
         },
         {
             id: 1,
-            name: 'Gestion',
+            name: 'Immobilier Neuf',
             selected: false
         },
         {
             id: 2,
-            name: 'Location',
+            name: 'Gestion Locative',
+            selected: false
+        },
+        {
+            id: 3,
+            name: 'Copropriété',
             selected: false
         }
     ]);

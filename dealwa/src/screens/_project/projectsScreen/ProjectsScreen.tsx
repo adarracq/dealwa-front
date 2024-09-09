@@ -25,7 +25,6 @@ export default function ProjectsScreen({ navigation, route }: Props) {
     function getUserProjects() {
         projectService.getAllByUserId(userData._id)
             .then((response) => {
-                console.log(response);
                 setProjects(response);
             }).catch((error) => {
                 console.log('error');
@@ -152,7 +151,8 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         gap: 8,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     btnContainer: {
         display: 'flex',

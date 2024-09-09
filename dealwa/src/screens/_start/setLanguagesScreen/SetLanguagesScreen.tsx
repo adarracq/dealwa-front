@@ -37,12 +37,14 @@ export default function SetLanguagesScreen({ navigation, route }: Props) {
             AsyncStorageUser.setUser(response);
             setUserData(response);
 
-            if (params.type === 'agent')
+            if (params.type === 'agent') {
                 navigation.navigate('SetAgentDetails', {
                     email: params.email,
                 });
-            else
+            }
+            else {
                 navigation.navigate('Home');
+            }
 
         }).catch((error) => {
             showMessage({

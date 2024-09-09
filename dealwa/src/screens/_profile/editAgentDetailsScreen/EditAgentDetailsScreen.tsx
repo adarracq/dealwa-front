@@ -58,18 +58,26 @@ export default function EditAgentDetailsScreen({ navigation, route }: Props) {
     const [specialities, setSpecialities] = useState([
         {
             id: 0,
-            name: 'Transaction',
+            name: 'Achat/Vente',
             selected: user.specialities ? user.specialities.includes('0') : false
         },
         {
             id: 1,
-            name: 'Gestion',
+            name: 'Immobilier Neuf',
+            icon: 'house',
             selected: user.specialities ? user.specialities.includes('1') : false
         },
         {
             id: 2,
-            name: 'Location',
+            name: 'Gestion Locative',
+            icon: 'gestion',
             selected: user.specialities ? user.specialities.includes('2') : false
+        },
+        {
+            id: 3,
+            name: 'Copropriété',
+            icon: 'copro',
+            selected: user.specialities ? user.specialities.includes('3') : false
         }
     ]);
 

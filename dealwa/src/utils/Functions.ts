@@ -87,6 +87,12 @@ function getIconSource(name: string) {
             return require('../assets/icons/map3.png');
         case 'clock':
             return require('../assets/icons/clock.png');
+        case 'lock':
+            return require('../assets/icons/lock.png');
+        case 'unlock':
+            return require('../assets/icons/unlock.png');
+        case 'copro':
+            return require('../assets/icons/copro.png');
         case 'flag-french':
             return require('../assets/icons/flag-french.png');
         case 'flag-uk':
