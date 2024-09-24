@@ -1,7 +1,8 @@
 export default {
     // App Colors
-    mainBlue: '#1223C4',
-    //mainBlue: '#03224C',
+    mainBlue: '#607AF3',
+    mainBLueLight: '#8094F6',
+    mainBlueDark: '#3F5FF0',
     mainRed: '#E55E48',
     lightBlue: '#579AEA',
     lightGreen: '#6EEB83',

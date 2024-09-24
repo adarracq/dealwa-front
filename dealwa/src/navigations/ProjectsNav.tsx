@@ -3,14 +3,14 @@ import { createStackNavigator } from '@react-navigation/stack'
 import ProjectsScreen from '../screens/_project/projectsScreen/ProjectsScreen';
 import NewProjectScreen from '../screens/_project/newProjectScreen/NewProjectScreen';
 import NewProjectLocationScreen from '../screens/_project/newProjectLocationScreen/NewProjectLocationScreen';
-import Project from '../models/Project';
 import ProjectDetailsScreen from '../screens/_project/projectDetailsScreen/ProjectDetailsScreen';
 import EditProjectScreen from '../screens/_project/editProjectScreen/EditProjectScreen';
+import Project from '../models/Project';
 
 export type ProjectsNavParams = {
     Home: undefined;
     NewProject: undefined;
-    NewProjectLocation: { type: number, description: string };
+    NewProjectLocation: { project: Project };
     ProjectDetails: { project: Project };
     EditProject: { project: Project };
 };

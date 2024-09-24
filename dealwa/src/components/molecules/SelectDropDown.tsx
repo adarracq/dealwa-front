@@ -9,13 +9,15 @@ import BodyText from '../atoms/BodyText';
 type Props = {
     title: string,
     items: any[],
-    onSelectItem: (item: any) => void
+    onSelectItem: (item: any) => void,
+    selected?: number,
 }
 
 export default function SelectDropDown(props: Props) {
     return (
         <SelectDropdown
             data={props.items}
+            defaultValue={props.selected}
             onSelect={(selectedItem, index) => {
                 props.onSelectItem(selectedItem);
             }}
@@ -23,18 +25,18 @@ export default function SelectDropDown(props: Props) {
                 return (
                     <View style={styles.dropdownButtonStyle}>
                         <BodyText
-                            text={(selectedItem && selectedItem.title) || 'Choisir ' + props.title}
-                            style='bold'
-                        >
-                        </BodyText>
-                        <AntDesign name={isOpened ? 'upcircleo' : 'downcircleo'} size={24} color={Colors.black} />
+                            text={(selectedItem && selectedItem.label) || 'Choisir ' + props.title}
+                            style={(selectedItem && selectedItem.label) ? 'regular' : 'bold'}
+                            color={(selectedItem && selectedItem.label) ? Colors.black : Colors.darkGrey}
+                        />
+                        <AntDesign name={isOpened ? 'upcircleo' : 'downcircleo'} size={24} color={Colors.darkGrey} />
                     </View>
                 );
             }}
             renderItem={(item, index, isSelected) => {
                 return (
                     <View style={{ ...styles.dropdownItemStyle, ...(isSelected && { backgroundColor: '#D2D9DF' }) }}>
-                        <BodyText text={item.title} style='bold' />
+                        <BodyText text={item.label} />
                     </View>
                 );
             }}

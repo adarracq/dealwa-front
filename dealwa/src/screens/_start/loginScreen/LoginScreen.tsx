@@ -96,7 +96,7 @@ export default function LoginScreen({ route, navigation }: Props) {
             else {
                 showMessage({
                     message: 'Erreur',
-                    description: error,
+                    description: 'Une erreur est survenue',
                     type: 'danger',
                 });
             }

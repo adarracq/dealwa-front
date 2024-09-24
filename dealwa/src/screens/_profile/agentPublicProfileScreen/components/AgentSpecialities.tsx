@@ -17,25 +17,25 @@ export default function AgentSpecialities(props: AgentSpecialitiesProps) {
             id: 0,
             name: 'Achat/Vente',
             icon: 'dollar',
-            selected: props.user.specialities ? props.user.specialities.includes('0') : false
+            selected: props.user.specialities ? props.user.specialities.includes(0) : false
         },
         {
             id: 1,
             name: 'Immobilier Neuf',
             icon: 'house',
-            selected: props.user.specialities ? props.user.specialities.includes('1') : false
+            selected: props.user.specialities ? props.user.specialities.includes(1) : false
         },
         {
             id: 2,
             name: 'Gestion Locative',
             icon: 'gestion',
-            selected: props.user.specialities ? props.user.specialities.includes('2') : false
+            selected: props.user.specialities ? props.user.specialities.includes(2) : false
         },
         {
             id: 3,
             name: 'Copropriété',
             icon: 'copro',
-            selected: props.user.specialities ? props.user.specialities.includes('3') : false
+            selected: props.user.specialities ? props.user.specialities.includes(3) : false
         }
     ]);
 
@@ -209,7 +209,6 @@ export default function AgentSpecialities(props: AgentSpecialitiesProps) {
                                             icon={lang.icon}
                                             text={lang.name}
                                             textColor={Colors.black}
-                                            iconColor={Colors.mainBlue}
                                         />
                                     </View>
                                     <View style={styles.specContainer}>
@@ -217,7 +216,6 @@ export default function AgentSpecialities(props: AgentSpecialitiesProps) {
                                             icon={languages[index + 1].icon}
                                             text={languages[index + 1].name}
                                             textColor={Colors.black}
-                                            iconColor={Colors.mainBlue}
                                         />
                                     </View>
                                 </View>

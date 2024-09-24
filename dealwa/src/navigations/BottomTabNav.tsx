@@ -16,7 +16,7 @@ import { NavParams } from './Nav';
 
 
 export type BottomNavParams = {
-    ShopOrProject: undefined;
+    Project: undefined;
     Calendar: undefined;
     Map: undefined;
     Messages: undefined;
@@ -48,7 +48,7 @@ export default function BottomTabNav({ navigation, route }: Props) {
             }}
         >
             <Tab.Screen
-                name="ShopOrProject"
+                name="Project"
                 component={ProjectsNav}
                 options={{
                     tabBarIcon: ({ focused }) => (

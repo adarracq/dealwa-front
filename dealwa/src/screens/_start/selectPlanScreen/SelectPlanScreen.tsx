@@ -66,14 +66,14 @@ export default function SelectPlanScreen({ navigation, route }: Props) {
     const plans0 = [
         {
             title: 'A l\'année',
-            price: '7,49 € / mois',
-            discount: '9,90 €',
+            price: '12,49 € / mois',
+            discount: '25,00 €',
             topInfo: 'Economisez 25%',
-            bottomInfo: 'Soit 89,90 € facturé annuellement '
+            bottomInfo: 'Soit 149,90 € facturé annuellement '
         },
         {
             title: 'Au mois',
-            price: '9,90 € / mois',
+            price: '14,90 € / mois',
             discount: undefined,
             topInfo: undefined,
             bottomInfo: 'Facturé mensuellement'
@@ -83,14 +83,14 @@ export default function SelectPlanScreen({ navigation, route }: Props) {
     const plans1 = [
         {
             title: 'A l\'année',
-            price: '14,99 € / mois',
-            discount: '19,90 €',
+            price: '19,99 € / mois',
+            discount: '60,00 €',
             topInfo: 'Economisez 60 €',
-            bottomInfo: 'Soit 179,90 € facturé annuellement '
+            bottomInfo: 'Soit 239,90 € facturé annuellement '
         },
         {
             title: 'Au mois',
-            price: '19,90 € / mois',
+            price: '24,90 € / mois',
             discount: undefined,
             topInfo: undefined,
             bottomInfo: 'Facturé mensuellement'

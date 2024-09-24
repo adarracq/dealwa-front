@@ -10,12 +10,13 @@ import IconButton from '../../../components/molecules/IconButton';
 import { projectService } from '../../../services/project.service';
 import { showMessage } from 'react-native-flash-message';
 import InputField from '../../../components/molecules/InputField';
+import Project from '../../../models/Project';
 
 type Props = NativeStackScreenProps<ProjectsNavParams, 'EditProject'>;
 
 export default function EditProjectScreen({ navigation, route }: Props) {
 
-    const [project, setProject] = useState(route.params.project);
+    const [project, setProject] = useState<Project>(route.params.project);
     const [type, setType] = useState(project.type);
     const [isChanged, setIsChanged] = useState(false);
 
@@ -41,6 +42,28 @@ export default function EditProjectScreen({ navigation, route }: Props) {
                 type: 'danger',
             })
         })
+    }
+
+    function deleteProject() {
+        if (!project._id)
+            return;
+
+        projectService.delete(project._id)
+            .then(() => {
+                showMessage({
+                    message: 'Succès',
+                    description: 'Votre projet a été supprimé',
+                    type: 'success',
+                })
+                navigation.goBack();
+            })
+            .catch((error) => {
+                showMessage({
+                    message: 'Erreur',
+                    description: 'Une erreur est survenue',
+                    type: 'danger',
+                })
+            })
     }
 
 
@@ -97,6 +120,14 @@ export default function EditProjectScreen({ navigation, route }: Props) {
                     backgroundColor={isChanged ? Colors.mainBlue : Colors.lightGrey}
                     iconColor={isChanged ? Colors.white : Colors.darkGrey}
                     onPress={save}
+                />
+            </View>
+            <View style={{ position: 'absolute', bottom: 20, left: 20 }}>
+                <IconButton
+                    icon='trash'
+                    backgroundColor={Colors.mainRed}
+                    iconColor={Colors.white}
+                    onPress={deleteProject}
                 />
             </View>
         </View>

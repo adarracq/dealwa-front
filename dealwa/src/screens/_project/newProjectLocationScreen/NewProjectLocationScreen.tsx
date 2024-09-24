@@ -1,17 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { Component, useContext, useEffect, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import React, { useContext, useEffect, useState } from 'react'
 import { ProjectsNavParams } from '../../../navigations/ProjectsNav';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { UserContext } from '../../../contexts/UserContext';
 import BottomArea from '../../../components/containers/BottomArea';
 import MyGeoSearch from '../../../components/organisms/MyGeoSearch';
-import MyMap from '../../../components/organisms/MyMap';
 import * as Location from 'expo-location'
 import MyMapMarker from '../../../models/MyMapMarker';
 import Coordinates from '../../../models/Coordinates';
 import { projectService } from '../../../services/project.service';
-import Project from '../../../models/Project';
 import { showMessage } from 'react-native-flash-message';
+import Project from '../../../models/Project';
+import MyProjectMap from '../../../components/organisms/MyProjectMap';
+import { geoApiGouvService } from '../../../services/geoApiGouv';
 
 type Props = NativeStackScreenProps<ProjectsNavParams, 'NewProjectLocation'>;
 
@@ -22,6 +23,7 @@ export default function NewProjectLocationScreen({ navigation, route }: Props) {
     const [centerChanged, setCenterChanged] = useState<Coordinates>();
     const [marker, setMarker] = useState<MyMapMarker>();
     const [centerCircleRadius, setCenterCircleRadius] = useState<number>(1000);
+    const [project, setProject] = useState<Project>(route.params.project);
 
 
     function onGeolocation(coords: Coordinates, address: Location.LocationGeocodedAddress) {
@@ -57,19 +59,25 @@ export default function NewProjectLocationScreen({ navigation, route }: Props) {
     }
 
     function onValidate() {
-        let project = new Project(
-            userData._id,
-            userData.firstname,
-            new Date(),
-            route.params.type,
-            'En attente',
-            route.params.description,
-            [center.longitude, center.latitude],
-            marker?.description || '',
-            centerCircleRadius || 1000
-        );
+        geoApiGouvService.getByCoords(center.latitude, center.longitude)
+            .then((response) => {
+                console.log(response);
+                if (response.length > 0) {
+                    saveProject(response[0].nom);
+                }
+            })
+            .catch((error) => {
+                console.log('Error getting city', error);
+            });
+    }
 
-        projectService.create(project)
+    function saveProject(city: string) {
+        projectService.create({
+            ...project,
+            coord: [center.latitude, center.longitude],
+            radius: centerCircleRadius,
+            address: city
+        })
             .then((result) => {
                 showMessage({
                     message: "Projet créé avec succès",
@@ -89,12 +97,13 @@ export default function NewProjectLocationScreen({ navigation, route }: Props) {
 
     return (
         <View style={styles.container}>
-            <MyMap
+            <MyProjectMap
                 center={center}
                 setCenter={setCenter}
                 onChangeCenter={centerChanged}
                 geolocationMarker={marker}
                 centerCircleRadius={centerCircleRadius}
+                showCenterCircle
             />
             <BottomArea>
                 <MyGeoSearch

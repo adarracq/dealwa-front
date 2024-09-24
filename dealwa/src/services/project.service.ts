@@ -44,6 +44,7 @@ function update(id: string, params: any) {
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
-function _delete(email: string) {
-    return fetchWrapper.delete(`${baseUrl}/${email}`);
+function _delete(id: string) {
+    console.log('delete project', id);
+    return fetchWrapper.delete(`${baseUrl}/${id}`);
 }

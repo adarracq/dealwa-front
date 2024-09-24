@@ -13,7 +13,7 @@ export default class User {
     type: string | null;
     network: string | null;
     status: string | null;
-    specialities: string[] | null;
+    specialities: number[] | null;
     experience: number | null;
     presentation: string | null;
     zones: MyMapCircle[] | null;

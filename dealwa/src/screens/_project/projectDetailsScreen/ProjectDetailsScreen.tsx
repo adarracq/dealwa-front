@@ -13,12 +13,13 @@ import { functions } from '../../../utils/Functions';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import ProjectPresentation from '../../../components/organisms/ProjectPresentation';
 import { userService } from '../../../services/user.service';
+import Project from '../../../models/Project';
 
 type Props = NativeStackScreenProps<ProjectsNavParams, 'ProjectDetails'>;
 
 export default function ProjectDetailsScreen({ navigation, route }: Props) {
 
-    const [project, setProject] = useState(route.params.project);
+    const [project, setProject] = useState<Project>(route.params.project);
     const [user, setUser] = useState(null);
 
     function getUser() {

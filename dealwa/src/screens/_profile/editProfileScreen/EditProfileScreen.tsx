@@ -132,7 +132,7 @@ export default function EditProfileScreen({ navigation, route }: Props) {
                                 return lang && (
                                     <LanguageSelected
                                         key={lang.id}
-                                        title={lang.name}
+                                        title={lang.label}
                                         icon={lang.icon}
                                         onDelete={() => removeLanguage(lang.id)}
                                     />

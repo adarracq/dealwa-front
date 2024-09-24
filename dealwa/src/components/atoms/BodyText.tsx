@@ -17,11 +17,11 @@ export default function BodyText(props: BodyTextProps) {
             color: props.color ? props.color : Colors.black,
             marginLeft: props.marginLeft ? props.marginLeft : null,
             textAlign: props.centered ? 'center' : 'left',
-            fontFamily: props.style == 'bold' ? 'poppins-bold'
+            fontFamily: props.style == 'bold' ? 'brother-bold'
                 :
-                props.style == 'italic' ? 'poppins-italic'
+                props.style == 'italic' ? 'brother-light-italic'
                     :
-                    'poppins'
+                    'brother'
         }}>
             {props.text}
         </Text>

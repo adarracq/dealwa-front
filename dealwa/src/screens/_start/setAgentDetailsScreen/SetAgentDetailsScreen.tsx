@@ -15,6 +15,7 @@ import RadioButton from '../../../components/molecules/RadioButton';
 import CheckBox from '../../../components/molecules/Checkbox';
 import PlusMinusInput from '../../../components/molecules/PlusMinusInput';
 import { userService } from '../../../services/user.service';
+import AgentDetails from '../../../constants/AgentDetails';
 
 type Props = NativeStackScreenProps<NavParams, 'SetAgentDetails'>;
 
@@ -24,31 +25,10 @@ export default function SetAgentDetailsScreen({ navigation, route }: Props) {
     const [network, setNetwork] = useState('');
     const [status, setStatus] = useState(0);
     const [experience, setExperience] = useState('0');
-    const [specialities, setSpecialities] = useState([
-        {
-            id: 0,
-            name: 'Achat/Vente',
-            selected: false
-        },
-        {
-            id: 1,
-            name: 'Immobilier Neuf',
-            selected: false
-        },
-        {
-            id: 2,
-            name: 'Gestion Locative',
-            selected: false
-        },
-        {
-            id: 3,
-            name: 'Copropriété',
-            selected: false
-        }
-    ]);
+    const [specialities, setSpecialities] = useState(AgentDetails.specialities);
 
     function saveDetails() {
-        const selectedSpecialities = specialities.filter((s) => s.selected).map((s) => s.id);
+        const selectedSpecialities = specialities.filter((s) => s.selected).map((s) => s.value);
         userService.update(params.email, {
             network,
             status,
@@ -102,10 +82,10 @@ export default function SetAgentDetailsScreen({ navigation, route }: Props) {
                     {
                         specialities.map((speciality) => (
                             <CheckBox
-                                key={speciality.id}
-                                title={speciality.name}
+                                key={speciality.value}
+                                title={speciality.label}
                                 selected={speciality.selected}
-                                onPress={() => setSpecialities(specialities.map((s) => s.id === speciality.id ? { ...s, selected: !s.selected } : s))}
+                                onPress={() => setSpecialities(specialities.map((s) => s.value === speciality.value ? { ...s, selected: !s.selected } : s))}
                             />
                         ))
                     }

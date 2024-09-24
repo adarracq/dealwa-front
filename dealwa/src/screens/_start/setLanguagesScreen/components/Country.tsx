@@ -6,7 +6,7 @@ import Colors from '../../../../constants/Colors';
 
 type CountryProps = {
     flag: string;
-    name: string;
+    label: string;
     selected: boolean;
     onPress: () => void;
 };
@@ -24,7 +24,7 @@ export default function Country(props: CountryProps) {
                     height: 30,
                     marginRight: 10
                 }} />
-            <BodyText text={props.name} color={props.selected ? Colors.white : Colors.darkGrey} />
+            <BodyText text={props.label} color={props.selected ? Colors.white : Colors.darkGrey} />
         </TouchableOpacity>
     )
 }

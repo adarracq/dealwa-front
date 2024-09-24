@@ -18,7 +18,7 @@ export default function SmallText(props: SmallTextProps) {
             <Text style={{
                 fontSize: 12,
                 textAlign: props.isLeft ? 'left' : 'center',
-                fontFamily: props.isBold ? 'poppins-bold' : 'poppins-italic',
+                fontFamily: props.isBold ? 'brother-bold' : 'brother-light-italic',
                 color: props.color ? props.color : Colors.darkGrey,
                 marginTop: props.marginTop ? props.marginTop : 0,
                 marginBottom: props.marginBottom ? props.marginBottom : 0

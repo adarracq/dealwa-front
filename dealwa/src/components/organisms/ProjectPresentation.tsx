@@ -1,6 +1,5 @@
 import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
 import React from 'react'
-import Project from '../../models/Project';
 import User from '../../models/User';
 import HeaderArea from '../containers/HeaderArea';
 import BodyText from '../atoms/BodyText';
@@ -9,6 +8,8 @@ import IconTextButton from '../molecules/IconTextButton';
 import { functions } from '../../utils/Functions';
 import Title1 from '../atoms/Title1';
 import MapView, { Circle } from 'react-native-maps';
+import Project from '../../models/Project';
+import ProjectRoomsEct from './ProjectRoomsEct';
 
 type Props = {
     project: Project;
@@ -30,9 +31,8 @@ export default function ProjectPresentation(props: Props) {
     }
 
     function getColor(type: number) {
-        return type == 0 ? Colors.mainBlue : Colors.mainRed;
+        return (type == 0 || type == 2) ? Colors.mainBlue : Colors.mainRed;
     }
-
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -57,6 +57,7 @@ export default function ProjectPresentation(props: Props) {
                     color={Colors.white}
                 />
             </View>
+            <ProjectRoomsEct project={props.project} />
             <HeaderArea
                 title='Présentation'
                 titleColor={getColor(props.project.type)}
@@ -69,7 +70,7 @@ export default function ProjectPresentation(props: Props) {
                 </View>
             </HeaderArea>
             <HeaderArea
-                title={props.project.type == 0 ? "Projet d'achat" : "Projet de vente"}
+                title={'Description'}
                 titleColor={getColor(props.project.type)}
             >
                 <View style={{ padding: 20 }} >
@@ -79,33 +80,19 @@ export default function ProjectPresentation(props: Props) {
                     />
                 </View>
             </HeaderArea>
-            {
-                props.project.address && props.project.address != '' &&
-                <HeaderArea
-                    title={'Adresse'}
-                    titleColor={getColor(props.project.type)}
-                >
-                    <View style={{ padding: 20 }} >
-                        <BodyText
-                            text={props.project.address ?? ''}
-                            color={Colors.black}
-                        />
-                    </View>
-                </HeaderArea>
-            }
             <View style={styles.mapContainer}>
                 <MapView style={styles.map}
                     initialRegion={{
-                        latitude: props.project.coord[1],
-                        longitude: props.project.coord[0],
+                        latitude: props.project.coord[0],
+                        longitude: props.project.coord[1],
                         latitudeDelta: 0.0922 * (props.project.radius / 4000),
                         longitudeDelta: 0.0421 * (props.project.radius / 4000),
                     }}
                 >
                     <Circle
                         center={{
-                            latitude: props.project.coord[1],
-                            longitude: props.project.coord[0],
+                            latitude: props.project.coord[0],
+                            longitude: props.project.coord[1],
                         }}
                         radius={props.project.radius == 0 ? 100 : props.project.radius}
                         fillColor="rgba(18, 35, 196, 0.2)"

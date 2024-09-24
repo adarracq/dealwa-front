@@ -13,13 +13,14 @@ import { functions } from '../../../utils/Functions';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Title2 from '../../../components/atoms/Title2';
 import { useIsFocused } from '@react-navigation/native';
+import Project from '../../../models/Project';
 
 type Props = NativeStackScreenProps<ProjectsNavParams, 'Home'>;
 
 export default function ProjectsScreen({ navigation, route }: Props) {
 
     const [userData, setUserData] = useContext(UserContext);
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState<Project[]>([]);
     const isFocused = useIsFocused();
 
     function getUserProjects() {
@@ -62,7 +63,6 @@ export default function ProjectsScreen({ navigation, route }: Props) {
                                         justifyContent: 'space-between',
                                         alignItems: 'center'
                                     }}
-                                //onPress={() => navigation.navigate('ProjectDetails', { project: project })}
                                 >
                                     <View
                                         style={{
@@ -77,7 +77,6 @@ export default function ProjectsScreen({ navigation, route }: Props) {
                                             borderTopLeftRadius: 16,
                                             borderTopRightRadius: 16
                                         }}
-                                    //onPress={() => navigation.navigate('ProjectDetails', { project: project })}
                                     >
                                         <Title1
                                             title={project.type == 0 ? "Projet d'achat" : 'Projet de vente'}

@@ -62,16 +62,16 @@ export default function SetLanguagesScreen({ navigation, route }: Props) {
             <SmallText text="Vous pourrez changer ces langues dans votre profil après votre inscription." isLeft />
             <BodyText text="Populaire" color={Colors.darkGrey} marginLeft={30} />
             <View style={{ gap: 10 }}>
-                <Country flag={languages[5].icon} name={languages[5].name} selected={languages[5].selected}
+                <Country flag={languages[5].icon} label={languages[5].label} selected={languages[5].selected}
                     onPress={() => changeLanguage(5)} />
-                <Country flag={languages[1].icon} name={languages[1].name} selected={languages[1].selected}
+                <Country flag={languages[1].icon} label={languages[1].label} selected={languages[1].selected}
                     onPress={() => changeLanguage(1)} />
             </View>
             <BodyText text="A-Z" color={Colors.darkGrey} marginLeft={30} />
             <ScrollView style={{ flexGrow: 1 }}>
                 <View style={{ gap: 10 }}>
                     {languages.map((language, index) => (
-                        <Country key={index} flag={language.icon} name={language.name} selected={language.selected}
+                        <Country key={index} flag={language.icon} label={language.label} selected={language.selected}
                             onPress={() => changeLanguage(language.id)} />
                     ))}
                 </View>

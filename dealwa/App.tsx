@@ -18,17 +18,12 @@ export default function App() {
   const [userData, setUserData] = useState<User>();
 
   const [fontsLoaded, fontError] = useFonts({
-    'poppins': require('./src/assets/fonts/poppins/Poppins-Regular.ttf'),
-    'poppins-bold': require('./src/assets/fonts/poppins/Poppins-Bold.ttf'),
-    'poppins-light': require('./src/assets/fonts/poppins/Poppins-Light.ttf'),
-    'poppins-medium': require('./src/assets/fonts/poppins/Poppins-Medium.ttf'),
-    'poppins-semibold': require('./src/assets/fonts/poppins/Poppins-SemiBold.ttf'),
-    'poppins-italic': require('./src/assets/fonts/poppins/Poppins-Italic.ttf'),
-    'montserrat': require('./src/assets/fonts/montserrat/Montserrat-Regular.ttf'),
-    'montserrat-bold': require('./src/assets/fonts/montserrat/Montserrat-Bold.ttf'),
-    'montserrat-light': require('./src/assets/fonts/montserrat/Montserrat-Light.ttf'),
-    'montserrat-medium': require('./src/assets/fonts/montserrat/Montserrat-Medium.ttf'),
-    'montserrat-semibold': require('./src/assets/fonts/montserrat/Montserrat-SemiBold.ttf'),
+    'avantt': require('./src/assets/fonts/avantt/Avantt-Regular.otf'),
+    'avantt-bold': require('./src/assets/fonts/avantt/Avantt-Bold.otf'),
+    'avantt-semibold': require('./src/assets/fonts/avantt/Avantt-SemiBold.otf'),
+    'brother': require('./src/assets/fonts/brother/Brother1816-Regular.ttf'),
+    'brother-bold': require('./src/assets/fonts/brother/Brother1816-Bold.ttf'),
+    'brother-light-italic': require('./src/assets/fonts/brother/Brother1816-LightItalic.ttf'),
   });
 
   // on récupère les données de l'utilisateur dans le local storage

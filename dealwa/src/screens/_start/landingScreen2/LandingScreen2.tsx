@@ -17,6 +17,7 @@ export default function LandingScreen2({ navigation, route }: Props) {
 
     const type = route.params?.type;
     const [list, setList] = useState<string[]>();
+    const [title, setTitle] = useState<string>();
 
     function goToLoginScreen() {
         navigation.navigate('Login', {

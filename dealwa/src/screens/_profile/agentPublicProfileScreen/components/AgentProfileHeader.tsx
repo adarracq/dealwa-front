@@ -36,7 +36,9 @@ export default function AgentProfileHeader(props: ProfileHeaderProps) {
                         source={{ uri: props.user.imageUrl ?? '' }}
                         style={styles.image} />
                     :
-                    <View style={styles.image} />
+                    <Image
+                        source={require('../../../../assets/img/profile.jpg')}
+                        style={styles.image} />
             }
             <Title1
                 title={getFirstNameAndAge()}

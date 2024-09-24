@@ -3,71 +3,61 @@ export default {
         [
             {
                 id: 0,
-                name: 'Allemand',
-                title: 'Allemand',
+                label: 'Allemand',
                 icon: 'flag-germany',
                 selected: false
             },
             {
                 id: 1,
-                name: 'Anglais',
-                title: 'Anglais',
+                label: 'Anglais',
                 icon: 'flag-uk',
                 selected: false
             },
             {
                 id: 2,
-                name: 'Arabe',
-                title: 'Arabe',
+                label: 'Arabe',
                 icon: 'flag-arabic',
                 selected: false
             },
             {
                 id: 3,
-                name: 'Chinois',
-                title: 'Chinois',
+                label: 'Chinois',
                 icon: 'flag-china',
                 selected: false
             },
             {
                 id: 4,
-                name: 'Espagnol',
-                title: 'Espagnol',
+                label: 'Espagnol',
                 icon: 'flag-spain',
                 selected: false
             },
             {
                 id: 5,
-                name: 'Français',
-                title: 'Français',
+                label: 'Français',
                 icon: 'flag-french',
                 selected: false
             },
             {
                 id: 6,
-                name: 'Italien',
-                title: 'Italien',
+                label: 'Italien',
                 icon: 'flag-italy',
                 selected: false
             },
             {
                 id: 7,
-                name: 'Japonais',
-                title: 'Japonais',
+                label: 'Japonais',
                 icon: 'flag-japan',
                 selected: false
             },
             {
                 id: 8,
-                name: 'Portugais',
-                title: 'Portugais',
+                label: 'Portugais',
                 icon: 'flag-portugal',
                 selected: false
             },
             {
                 id: 9,
-                name: 'Russe',
-                title: 'Russe',
+                label: 'Russe',
                 icon: 'flag-russia',
                 selected: false
             },

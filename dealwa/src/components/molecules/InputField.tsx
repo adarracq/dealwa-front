@@ -13,7 +13,7 @@ type InputFieldProps = {
     onBlur?: () => void;
     errorText?: string | null;
     isPassword?: boolean;
-    keyBoardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad';
+    keyBoardType?: 'default' | 'numeric' | 'email-address' | 'phone-pad' | 'number-pad';
     flex?: number;
     isMultiline?: boolean;
     height?: number;
@@ -54,7 +54,7 @@ export default function InputField(props: InputFieldProps) {
                     borderRadius: 16,
                     paddingLeft: 16,
                     backgroundColor: Colors.white,
-                    fontFamily: 'poppins',
+                    fontFamily: 'brother',
                     textAlignVertical: props.isMultiline ? 'top' : 'center',
                     paddingTop: props.isMultiline ? 16 : 0
                 }}

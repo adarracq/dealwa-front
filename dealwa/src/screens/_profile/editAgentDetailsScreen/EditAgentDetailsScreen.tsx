@@ -17,6 +17,7 @@ import PlusMinusInput from '../../../components/molecules/PlusMinusInput';
 import Title2 from '../../../components/atoms/Title2';
 import CheckBox from '../../../components/molecules/Checkbox';
 import RadioButton from '../../../components/molecules/RadioButton';
+import AgentDetails from '../../../constants/AgentDetails';
 
 type Props = NativeStackScreenProps<ProfileNavParams, 'EditAgent'>;
 
@@ -55,31 +56,13 @@ export default function EditAgentDetailsScreen({ navigation, route }: Props) {
         })
     }
 
-    const [specialities, setSpecialities] = useState([
-        {
-            id: 0,
-            name: 'Achat/Vente',
-            selected: user.specialities ? user.specialities.includes('0') : false
-        },
-        {
-            id: 1,
-            name: 'Immobilier Neuf',
-            icon: 'house',
-            selected: user.specialities ? user.specialities.includes('1') : false
-        },
-        {
-            id: 2,
-            name: 'Gestion Locative',
-            icon: 'gestion',
-            selected: user.specialities ? user.specialities.includes('2') : false
-        },
-        {
-            id: 3,
-            name: 'Copropriété',
-            icon: 'copro',
-            selected: user.specialities ? user.specialities.includes('3') : false
-        }
-    ]);
+    const [specialities, setSpecialities] = useState(AgentDetails.specialities);
+
+    useEffect(() => {
+        specialities.forEach((s) => {
+            s.selected = user.specialities ? user.specialities.includes(s.value) : false;
+        });
+    }, [user]);
 
     return (
         <View style={styles.container}>
@@ -123,13 +106,13 @@ export default function EditAgentDetailsScreen({ navigation, route }: Props) {
                     {
                         specialities.map((speciality) => (
                             <CheckBox
-                                key={speciality.id}
-                                title={speciality.name}
+                                key={speciality.value}
+                                title={speciality.label}
                                 selected={speciality.selected}
                                 onPress={() => {
-                                    let _specs = specialities.map((s) => s.id === speciality.id ? { ...s, selected: !s.selected } : s);
+                                    let _specs = specialities.map((s) => s.value === speciality.value ? { ...s, selected: !s.selected } : s);
                                     setSpecialities(_specs);
-                                    setUser({ ...user, specialities: _specs.filter(s => s.selected).map(s => s.id.toString()) });
+                                    setUser({ ...user, specialities: _specs.filter(s => s.selected).map(s => s.value) });
                                     setIsChanged(true);
                                 }}
                             />

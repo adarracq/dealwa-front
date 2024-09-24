@@ -16,7 +16,7 @@ export default function Title2(props: Title2Props) {
             color: props.color ? props.color : Colors.black,
             fontSize: 16,
             textAlign: props.isLeft ? 'left' : 'center',
-            fontFamily: 'montserrat-semibold',
+            fontFamily: 'avantt-semibold',
             textDecorationLine: props.crossed ? 'line-through' : 'none'
         }}>{props.title}</Text>
     )

@@ -143,15 +143,15 @@ export default function MyGeoSearch(props: Props) {
                     borderRadius: 16,
                     paddingLeft: 16,
                     backgroundColor: Colors.white,
-                    fontFamily: 'poppins',
+                    fontFamily: 'brother',
                 }}
 
                 styles={{
                     textInput: {
-                        fontFamily: 'poppins',
+                        fontFamily: 'brother',
                     },
                     description: {
-                        fontFamily: 'poppins',
+                        fontFamily: 'brother',
                     },
                     poweredContainer: {
                         display: 'none',

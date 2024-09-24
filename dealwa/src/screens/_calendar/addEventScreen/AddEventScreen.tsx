@@ -31,7 +31,7 @@ export default function AddEventScreen({ navigation, route }: Props) {
     const [description, setDescription] = useState('')
     const [guests, setGuests] = useState<string[]>(['Vous'])
     const [friends, setFriends] = useState<User[]>([])
-    const [dropdownFriends, setDropdownFriends] = useState<{ title: string, id: string }[]>([])
+    const [dropdownFriends, setDropdownFriends] = useState<{ label: string, id: string }[]>([])
 
     function getFriends() {
         // get friends from database
@@ -47,7 +47,7 @@ export default function AddEventScreen({ navigation, route }: Props) {
         let _dropdownFriends = _friends
             .filter(friend => friend.firstname !== null && friend._id !== null)
             .map(friend => {
-                return { title: friend.firstname!, id: friend._id! };
+                return { label: friend.firstname!, id: friend._id! };
             });
 
         setDropdownFriends(_dropdownFriends);
@@ -181,8 +181,8 @@ export default function AddEventScreen({ navigation, route }: Props) {
                     items={dropdownFriends}
                     onSelectItem={(item) => {
                         // if not in guests, add it
-                        if (!guests.includes(item.title)) {
-                            setGuests([...guests, item.title]);
+                        if (!guests.includes(item.label)) {
+                            setGuests([...guests, item.label]);
                         }
                     }}
                 />
@@ -206,7 +206,7 @@ export default function AddEventScreen({ navigation, route }: Props) {
                 <Title2 title='Détails' isLeft />
                 <SelectDropDown
                     title="type d'évènement"
-                    items={[{ title: 'Réunion' }, { title: 'Rendez-vous' }, { title: 'Autre' }]}
+                    items={[{ label: 'Réunion', id: 0 }, { label: 'Rendez-vous', id: 1 }, { label: 'Autre', id: 2 }]}
                     onSelectItem={() => { }}
                 />
                 <InputField

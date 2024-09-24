@@ -93,6 +93,18 @@ function getIconSource(name: string) {
             return require('../assets/icons/unlock.png');
         case 'copro':
             return require('../assets/icons/copro.png');
+        case 'room':
+            return require('../assets/icons/room.png');
+        case 'bedroom':
+            return require('../assets/icons/bedroom.png');
+        case 'bathroom':
+            return require('../assets/icons/bathroom.png');
+        case 'surface':
+            return require('../assets/icons/surface.png');
+        case 'budget':
+            return require('../assets/icons/budget.png');
+        case 'mylocation':
+            return require('../assets/icons/mylocation.png');
         case 'flag-french':
             return require('../assets/icons/flag-french.png');
         case 'flag-uk':

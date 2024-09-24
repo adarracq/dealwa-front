@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: Colors.mainBlue,
-        fontFamily: 'poppins-semibold',
+        fontFamily: 'brother-bold',
         fontSize: 12,
     }
 })
